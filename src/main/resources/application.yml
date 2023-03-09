@@ -1,0 +1,20 @@
+server:
+  port: 8800
+  servlet:
+    context-path: /ide/api
+
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/online-db-projects
+    username: postgres
+    password: 123456
+  jpa:
+    hibernate:
+      ddl-auto: update
+    generate-ddl: true
+
+jwt:
+  token:
+    expired: 7200000
+    secret: secret
+
