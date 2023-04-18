@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Slf4j
 @RestController
@@ -31,7 +30,7 @@ public class AuthController {
     private final JwtTokenProvider jwtTokenProvider;
     private final UserServiceImpl userService;
 
-    @PostMapping("login")
+    @PostMapping("/login")
     public AuthenticationResponseDto login(@RequestBody AuthenticationRequestDto authenticationRequestDto) {
         log.info("login {}", authenticationRequestDto);
         try {
@@ -49,7 +48,7 @@ public class AuthController {
         }
     }
 
-    @PostMapping("register")
+    @PostMapping("/register")
     public AuthenticationResponseDto register(@RequestBody RegistrationRequestDto registrationRequestDto) {
         log.info("register {}", registrationRequestDto);
         String username = registrationRequestDto.getUsername();
@@ -79,6 +78,11 @@ public class AuthController {
         if (user == null) return new ArrayList<>();
         return user.getRoles().stream()
                 .map(Role::getName)
-                .collect(Collectors.toList());
+                .toList();
+    }
+
+    @PutMapping("a")
+    public void a(@RequestBody char[] a) {
+        System.out.println(a);
     }
 }

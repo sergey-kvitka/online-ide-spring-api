@@ -32,4 +32,8 @@ public class ProjectServiceImpl {
                 .orElse(null);
         return permission.accept(projectRole);
     }
+
+    public Project save(Project project) {
+        return projectRepository.save(project);
+    }
 }

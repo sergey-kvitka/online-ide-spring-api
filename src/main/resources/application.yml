@@ -12,9 +12,10 @@ spring:
     hibernate:
       ddl-auto: update
     generate-ddl: true
+    show-sql: false
 
 jwt:
   token:
-    expired: 7200000
+    expired: 864000000
     secret: secret
 

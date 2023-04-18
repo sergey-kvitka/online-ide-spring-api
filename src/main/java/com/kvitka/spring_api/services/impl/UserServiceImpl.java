@@ -9,6 +9,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -46,5 +47,9 @@ public class UserServiceImpl {
 
     public List<User> findByUsernameLike(String username) {
         return userRepository.findByUsernameContaining(username);
+    }
+
+    public ZonedDateTime findLastChangeByUserId(Long userId) {
+        return userRepository.findLastChangeByUserId(userId);
     }
 }

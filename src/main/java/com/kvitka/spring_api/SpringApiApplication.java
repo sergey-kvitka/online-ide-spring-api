@@ -25,11 +25,14 @@ public class SpringApiApplication {
 
     @Bean
     public int a(
-        ProjectFileRepository projectFileRepository,
-        ProjectUserRepository projectUserRepository,
-        ProjectRepository projectRepository,
-        UserRepository userRepository
+            ProjectFileRepository projectFileRepository,
+            ProjectUserRepository projectUserRepository,
+            ProjectRepository projectRepository,
+            UserRepository userRepository
     ) {
+
+//        System.out.println(userRepository.findLastChangeByUserId(2L).orElse(ZonedDateTime.now()));
+
         if (true) return 1;
         User sergey = userRepository.findByUsername("sergey_kvitka");
         User alla = userRepository.findByUsername("alla_s");

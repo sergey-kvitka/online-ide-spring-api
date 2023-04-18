@@ -19,8 +19,7 @@ public class ProjectUserDto {
     private Long projectUserId;
     private UserNamesDto userInfo;
     private ProjectRole projectRole;
-    private boolean isOnline;
-    private ZonedDateTime lastOnline;
+    private ZonedDateTime lastChange;
 
     public static ProjectUserDto from(ProjectUser projectUser) {
         User user = projectUser.getUser();
@@ -32,8 +31,7 @@ public class ProjectUserDto {
                         user.getFirstName(),
                         user.getLastName()))
                 .projectRole(projectUser.getProjectRole())
-                .isOnline(user.getIsOnline())
-                .lastOnline(user.getLastOnline())
+                .lastChange(projectUser.getLastChange())
                 .build();
     }
 }

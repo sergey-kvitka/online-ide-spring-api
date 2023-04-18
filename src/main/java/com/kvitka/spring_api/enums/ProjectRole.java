@@ -39,6 +39,10 @@ public enum ProjectRole {
         return permissions.contains(permission);
     }
 
+    public List<Permission> getPermissions() {
+        return new ArrayList<>(permissions);
+    }
+
     public enum Permission {
         PROJECT_SETTINGS,
         SET_ADMIN_ROLE,

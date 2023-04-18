@@ -1,7 +1,14 @@
 package com.kvitka.spring_api.entities;
 
 import jakarta.persistence.*;
+import lombok.*;
 
+@Getter
+@Setter
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+@ToString
 @Entity(name = "project_files")
 public class ProjectFile {
     @Id
@@ -12,10 +19,10 @@ public class ProjectFile {
     @Column(name = "path", length = 1000, nullable = false)
     private String path;
 
-    @Column(name = "file_content_id", nullable = true)
+    @Column(name = "file_content_id", length = 36)
     private String fileContentId;
 
     @ManyToOne
-    @JoinColumn(name="project_id", nullable = false)
+    @JoinColumn(name = "project_id", nullable = false)
     private Project project;
 }

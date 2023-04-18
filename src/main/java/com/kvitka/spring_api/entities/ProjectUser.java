@@ -22,11 +22,8 @@ public class ProjectUser {
     @Enumerated(EnumType.STRING)
     private ProjectRole projectRole;
 
-    @Column(name = "is_online")
-    private Boolean isOnline;
-
-    @Column(name = "last_online")
-    private ZonedDateTime lastOnline;
+    @Column(name = "last_change")
+    private ZonedDateTime lastChange;
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)

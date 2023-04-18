@@ -1,6 +1,7 @@
 package com.kvitka.spring_api.services.impl;
 
 import com.kvitka.spring_api.entities.Project;
+import com.kvitka.spring_api.entities.ProjectUser;
 import com.kvitka.spring_api.entities.User;
 import com.kvitka.spring_api.enums.ProjectRole;
 import com.kvitka.spring_api.repositories.ProjectUserRepository;
@@ -21,8 +22,20 @@ public class ProjectUserServiceImpl {
         addParticipantIfDoesNotExist(user, project, project.getProjectType().getDefaultProjectRole());
     }
 
-    public void addParticipantIfDoesNotExist(User user, Project project, ProjectRole projectRole) {
+    private void addParticipantIfDoesNotExist(User user, Project project, ProjectRole projectRole) {
         if (existsByProjectAndUser(project, user)) return;
+        projectUserRepository.save(ProjectUser.builder()
+                .user(user)
+                .project(project)
+                .projectRole(projectRole)
+                .build());
+    }
 
+    public ProjectUser findByUserIdAndProjectUUID(Long userId, String projectUUID) {
+        return projectUserRepository.findByUserIdAndProjectUUID(userId, projectUUID);
+    }
+
+    public ProjectUser save(ProjectUser projectUser) {
+        return projectUserRepository.save(projectUser);
     }
 }

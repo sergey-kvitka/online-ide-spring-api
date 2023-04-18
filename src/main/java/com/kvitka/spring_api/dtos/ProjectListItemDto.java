@@ -22,7 +22,7 @@ public class ProjectListItemDto {
     private ProjectType projectType;
     private String description;
     private ProjectRole projectRole;
-    private ZonedDateTime lastProjectOnline;
+    private ZonedDateTime lastChange;
     private String yourUsername;
     private UserNamesDto creatorInfo;
 
@@ -36,7 +36,7 @@ public class ProjectListItemDto {
                 .projectType(project.getProjectType())
                 .description(project.getDescription())
                 .projectRole(projectUser.getProjectRole())
-                .lastProjectOnline(projectUser.getLastOnline())
+                .lastChange(projectUser.getLastChange())
                 .yourUsername(projectUser.getUser().getUsername())
                 .creatorInfo(creator == null ? null : new UserNamesDto(
                         creator.getUsername(),

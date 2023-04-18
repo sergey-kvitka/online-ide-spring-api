@@ -1,6 +1,5 @@
 package com.kvitka.spring_api.entities;
 
-
 import com.kvitka.spring_api.enums.ProjectRole;
 import com.kvitka.spring_api.enums.ProjectType;
 import jakarta.persistence.*;
@@ -29,7 +28,8 @@ public class Project {
     @Column(name = "name", nullable = false)
     private String name;
 
-    @Column(name = "created", nullable = false)
+    @Column(name = "created",
+            columnDefinition = "timestamp(6) default = now() not null")
     private ZonedDateTime created;
 
     @Column(name = "project_type", nullable = false)
