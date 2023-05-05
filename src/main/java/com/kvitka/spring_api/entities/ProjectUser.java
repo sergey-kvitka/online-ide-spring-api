@@ -11,6 +11,7 @@ import java.time.ZonedDateTime;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@ToString
 @Entity(name = "project_users")
 public class ProjectUser {
     @Id
@@ -26,10 +27,12 @@ public class ProjectUser {
     private ZonedDateTime lastChange;
 
     @ManyToOne
+    @ToString.Exclude
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
     @ManyToOne
+    @ToString.Exclude
     @JoinColumn(name = "project_id", nullable = false)
     private Project project;
 }

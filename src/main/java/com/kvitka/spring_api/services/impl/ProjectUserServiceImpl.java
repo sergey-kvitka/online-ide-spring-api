@@ -8,6 +8,8 @@ import com.kvitka.spring_api.repositories.ProjectUserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class ProjectUserServiceImpl {
@@ -37,5 +39,17 @@ public class ProjectUserServiceImpl {
 
     public ProjectUser save(ProjectUser projectUser) {
         return projectUserRepository.save(projectUser);
+    }
+
+    public void deleteProjectUser(Long projectUserId) {
+        projectUserRepository.deleteByProjectUserId(projectUserId);
+    }
+
+    public void deleteByListOfId(List<Long> projectUserIds) {
+        projectUserRepository.deleteByProjectUserIdIn(projectUserIds);
+    }
+
+    public void saveAll(List<ProjectUser> projectUsers) {
+        projectUserRepository.saveAll(projectUsers);
     }
 }

@@ -39,11 +39,11 @@ public class Project {
     @Column(name = "description", length = 5000) // * nullable
     private String description;
 
-    @OneToMany(mappedBy = "project", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "project")
     @ToString.Exclude
     private List<ProjectUser> projectUsers;
 
-    @OneToMany(mappedBy = "project", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "project")
     @ToString.Exclude
     private List<ProjectFile> projectFiles;
 

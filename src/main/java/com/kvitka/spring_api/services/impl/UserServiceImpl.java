@@ -1,14 +1,16 @@
 package com.kvitka.spring_api.services.impl;
 
-import com.kvitka.spring_api.entities.User;
-import com.kvitka.spring_api.repositories.UserRepository;
 import com.kvitka.spring_api.entities.Role;
+import com.kvitka.spring_api.entities.User;
 import com.kvitka.spring_api.repositories.RoleRepository;
+import com.kvitka.spring_api.repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.sql.Timestamp;
+import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -37,6 +39,10 @@ public class UserServiceImpl {
         return userRepository.existsByUsername(username);
     }
 
+    public boolean existsByEmail(String email) {
+        return userRepository.existsByEmail(email);
+    }
+
     public User findByUsername(String username) {
         return userRepository.findByUsername(username);
     }
@@ -46,10 +52,13 @@ public class UserServiceImpl {
     }
 
     public List<User> findByUsernameLike(String username) {
-        return userRepository.findByUsernameContaining(username);
+        return userRepository.findByUsernameContainingIgnoreCase(username);
     }
 
     public ZonedDateTime findLastChangeByUserId(Long userId) {
-        return userRepository.findLastChangeByUserId(userId);
+        Timestamp timestamp = userRepository.findLastChangeByUserId(userId);
+        return (timestamp == null)
+                ? null
+                : ZonedDateTime.ofInstant(timestamp.toInstant(), ZoneId.systemDefault());
     }
 }

@@ -36,4 +36,8 @@ public class ProjectServiceImpl {
     public Project save(Project project) {
         return projectRepository.save(project);
     }
+
+    public void delete(String projectUUID) {
+        projectRepository.deleteByProjectUUID(projectUUID);
+    }
 }

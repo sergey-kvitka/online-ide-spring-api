@@ -27,18 +27,18 @@ public class User {
     @Column(name = "last_name", length = 30, nullable = false)
     private String lastName;
 
-    @Column(name = "email", length = 60, nullable = false)
+    @Column(name = "email", length = 100, nullable = false)
     private String email;
 
     @Column(name = "password", nullable = false)
     @ToString.Exclude
     private String password;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "user")
     @ToString.Exclude
     private List<ProjectUser> projectUsers;
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "user_roles",
             joinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "user_id")},
             inverseJoinColumns = {@JoinColumn(name = "role_id", referencedColumnName = "id")})

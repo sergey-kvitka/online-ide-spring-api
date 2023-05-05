@@ -6,7 +6,6 @@ import com.kvitka.spring_api.dtos.UserNamesDto;
 import com.kvitka.spring_api.entities.User;
 import com.kvitka.spring_api.security.jwt.JwtTokenProvider;
 import com.kvitka.spring_api.services.impl.UserServiceImpl;
-import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 

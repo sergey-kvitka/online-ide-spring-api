@@ -5,32 +5,28 @@ import java.util.List;
 
 public enum ProjectRole {
 
-    CREATOR(new Permission[]{
-            Permission.PROJECT_SETTINGS,
+    CREATOR(Permission.PROJECT_SETTINGS,
             Permission.SET_ADMIN_ROLE,
             Permission.SET_ROLES,
             Permission.ADD_AND_DELETE_USERS,
             Permission.EDIT,
-            Permission.COMMENT}),
+            Permission.COMMENT),
 
-    PROJECT_ADMIN(new Permission[]{
-            Permission.SET_ROLES,
+    PROJECT_ADMIN(Permission.SET_ROLES,
             Permission.ADD_AND_DELETE_USERS,
             Permission.EDIT,
-            Permission.COMMENT}),
+            Permission.COMMENT),
 
-    EDITOR(new Permission[]{
-            Permission.EDIT,
-            Permission.COMMENT}),
+    EDITOR(Permission.EDIT,
+            Permission.COMMENT),
 
-    COMMENTER(new Permission[]{
-            Permission.COMMENT}),
+    COMMENTER(Permission.COMMENT),
 
-    WATCHER(new Permission[]{});
+    WATCHER();
 
     private final List<Permission> permissions;
 
-    ProjectRole(Permission[] permissions) {
+    ProjectRole(Permission... permissions) {
         this.permissions = new ArrayList<>(List.of(permissions));
         this.permissions.add(Permission.BE_PARTICIPANT);
     }

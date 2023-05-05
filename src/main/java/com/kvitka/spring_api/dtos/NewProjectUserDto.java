@@ -8,12 +8,8 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class ChangeRoleDto {
+public class NewProjectUserDto {
     private String username;
     private String projectUUID;
-    private ProjectRole newProjectRole; // ? nullable
-
-    public boolean nonNullFields() {
-        return username != null && projectUUID != null;
-    }
+    private ProjectRole role;
 }
