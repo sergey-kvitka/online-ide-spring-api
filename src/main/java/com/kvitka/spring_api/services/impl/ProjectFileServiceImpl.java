@@ -24,4 +24,20 @@ public class ProjectFileServiceImpl {
     public void saveAll(List<ProjectFile> projectUsers) {
         projectFileRepository.saveAll(projectUsers);
     }
+
+    public boolean existsByPath(String path) {
+        return projectFileRepository.existsByPath(path);
+    }
+
+    public ProjectFile findById(Long projectFileId) {
+        return projectFileRepository.findById(projectFileId).orElse(null);
+    }
+
+    public ProjectFile findByContentId(String contentId) {
+        return projectFileRepository.findByFileContentId(contentId);
+    }
+
+    public void deleteById(Long projectFileId) {
+        projectFileRepository.deleteById(projectFileId);
+    }
 }

@@ -6,18 +6,22 @@ import com.kvitka.spring_api.entities.User;
 import com.kvitka.spring_api.enums.ProjectRole;
 import com.kvitka.spring_api.repositories.ProjectRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
 
 @Service
 @RequiredArgsConstructor
 public class ProjectServiceImpl {
+
+    @Value("${api.jar-executor.port}")
+    private String jarExecutorURL;
+
     private final ProjectRepository projectRepository;
 
-    public Project findById(Long projectId) {
-        return projectRepository.findById(projectId).orElse(null);
-    }
+    private final RestTemplate restTemplate;
 
     public Project findByUUID(String projectUUID) {
         return projectRepository.findByProjectUUID(projectUUID);
@@ -39,5 +43,8 @@ public class ProjectServiceImpl {
 
     public void delete(String projectUUID) {
         projectRepository.deleteByProjectUUID(projectUUID);
+        new Thread(() ->
+                restTemplate.put("%s/stopMavenExec/%s".formatted(jarExecutorURL, projectUUID), new Object())
+        ).start();
     }
 }

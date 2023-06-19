@@ -9,18 +9,15 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-@Entity(name = "project_files")
-public class ProjectFile {
+@Entity(name = "project_folders")
+public class ProjectFolder {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "project_file_id", nullable = false)
-    private Long id;
+    @Column(name = "project_folder_id", nullable = false)
+    private Long projectFolderId;
 
     @Column(name = "path", length = 10000, nullable = false)
     private String path;
-
-    @Column(name = "file_content_id", length = 36)
-    private String fileContentId;
 
     @ManyToOne
     @JoinColumn(name = "project_id", nullable = false)

@@ -19,3 +19,8 @@ jwt:
     expired: 864000000
     secret: secret
 
+api:
+  jar-executor:
+    port: http://localhost:8123
+  node-mongo:
+    port: http://localhost:3050

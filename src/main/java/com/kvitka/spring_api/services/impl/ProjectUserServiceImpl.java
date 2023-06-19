@@ -8,6 +8,7 @@ import com.kvitka.spring_api.repositories.ProjectUserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.ZonedDateTime;
 import java.util.List;
 
 @Service
@@ -49,7 +50,14 @@ public class ProjectUserServiceImpl {
         projectUserRepository.deleteByProjectUserIdIn(projectUserIds);
     }
 
-    public void saveAll(List<ProjectUser> projectUsers) {
-        projectUserRepository.saveAll(projectUsers);
+    public void updateLastChange(Long projectUserId) {
+        ProjectUser projectUser = projectUserRepository.findById(projectUserId).orElse(null);
+        if (projectUser == null) return;
+        projectUser.setLastChange(ZonedDateTime.now());
+        projectUserRepository.save(projectUser);
+    }
+
+    public void deleteById(Long projectUserId) {
+        projectUserRepository.deleteByProjectUserId(projectUserId);
     }
 }

@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.ZonedDateTime;
+import java.util.List;
 
 @Getter
 @Setter
@@ -35,4 +36,8 @@ public class ProjectUser {
     @ToString.Exclude
     @JoinColumn(name = "project_id", nullable = false)
     private Project project;
+
+    @OneToMany(mappedBy = "projectUser")
+    @ToString.Exclude
+    private List<CodeDifference> codeDifferences;
 }

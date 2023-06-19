@@ -7,4 +7,8 @@ import java.util.List;
 
 public interface ProjectFileRepository extends JpaRepository<ProjectFile, Long> {
     void deleteByIdIn(List<Long> projectFileIds);
+
+    boolean existsByPath(String path);
+
+    ProjectFile findByFileContentId(String contentId);
 }

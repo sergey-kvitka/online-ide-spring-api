@@ -2,6 +2,7 @@ package com.kvitka.spring_api.dtos;
 
 import com.kvitka.spring_api.entities.Project;
 import com.kvitka.spring_api.entities.User;
+import com.kvitka.spring_api.enums.ProjectBuildType;
 import com.kvitka.spring_api.enums.ProjectType;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -21,6 +22,8 @@ public class ProjectInfoDto {
     private ZonedDateTime created;
     private ProjectType projectType;
     private Integer projectFilesAmount;
+    private ProjectBuildType projectBuildType;
+    private String groupId;
 
     public static ProjectInfoDto from(Project project) {
         User creator = project.getCreator();
@@ -34,6 +37,8 @@ public class ProjectInfoDto {
                 .created(project.getCreated())
                 .projectType(project.getProjectType())
                 .projectFilesAmount(project.getProjectFiles().size())
+                .projectBuildType(project.getBuildType())
+                .groupId(project.getGroupId())
                 .build();
     }
 }

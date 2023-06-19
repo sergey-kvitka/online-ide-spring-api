@@ -3,6 +3,7 @@ package com.kvitka.spring_api.dtos;
 import com.kvitka.spring_api.entities.Project;
 import com.kvitka.spring_api.entities.ProjectUser;
 import com.kvitka.spring_api.entities.User;
+import com.kvitka.spring_api.enums.ProjectBuildType;
 import com.kvitka.spring_api.enums.ProjectRole;
 import com.kvitka.spring_api.enums.ProjectType;
 import lombok.AllArgsConstructor;
@@ -25,6 +26,7 @@ public class ProjectListItemDto {
     private ZonedDateTime lastChange;
     private String yourUsername;
     private UserNamesDto creatorInfo;
+    private ProjectBuildType projectBuildType;
 
     public static ProjectListItemDto from(ProjectUser projectUser) {
         Project project = projectUser.getProject();
@@ -42,6 +44,7 @@ public class ProjectListItemDto {
                         creator.getUsername(),
                         creator.getFirstName(),
                         creator.getLastName()))
+                .projectBuildType(project.getBuildType())
                 .build();
     }
 }

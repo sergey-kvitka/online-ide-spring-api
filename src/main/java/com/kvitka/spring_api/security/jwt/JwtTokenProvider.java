@@ -10,7 +10,6 @@ import io.jsonwebtoken.SignatureAlgorithm;
 import jakarta.annotation.PostConstruct;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -22,7 +21,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Slf4j
 @Component
 @RequiredArgsConstructor
 public class JwtTokenProvider {
@@ -46,7 +44,6 @@ public class JwtTokenProvider {
         claims.put("roles", getRoleNames(roles));
         Date now = new Date();
         Date validity = new Date(now.getTime() + validityInMilliseconds);
-        log.info("Creating token (claims: {})", claims);
         return Jwts.builder()
                 .setClaims(claims)
                 .setIssuedAt(now)
@@ -56,7 +53,6 @@ public class JwtTokenProvider {
     }
 
     public UsernamePasswordAuthenticationToken getAuthentication(String token) {
-        log.info("Getting authentication by token");
         UserDetails userDetails = this.userDetailsService.loadUserByUsername(getUsername(token));
         return new UsernamePasswordAuthenticationToken(userDetails, "", userDetails.getAuthorities());
     }
@@ -66,28 +62,21 @@ public class JwtTokenProvider {
     }
 
     public String getUsername(String token) {
-        String subject = Jwts.parser()
+        return Jwts.parser()
                 .setSigningKey(secret)
                 .parseClaimsJws(token)
                 .getBody()
                 .getSubject();
-        log.info("Getting username by token (username: {})", subject);
-        return subject;
     }
 
     public String resolveToken(HttpServletRequest request) {
         String bearerToken = request.getHeader("Authorization");
-        log.info("Getting bearer token from HTTP request");
         return getToken(bearerToken);
     }
 
     public String getToken(String bearerToken) {
         boolean isNull = bearerToken == null;
-        if (!isNull && bearerToken.startsWith("Bearer_")) {
-            log.info("Extracting token from bearer token");
-            return bearerToken.substring(7);
-        }
-        log.warn(isNull ? "No bearer token provided" : "Wrong bearer token format");
+        if (!isNull && bearerToken.startsWith("Bearer_")) return bearerToken.substring(7);
         return null;
     }
 

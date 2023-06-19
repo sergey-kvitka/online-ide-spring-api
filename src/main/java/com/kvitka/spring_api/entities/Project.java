@@ -1,5 +1,6 @@
 package com.kvitka.spring_api.entities;
 
+import com.kvitka.spring_api.enums.ProjectBuildType;
 import com.kvitka.spring_api.enums.ProjectRole;
 import com.kvitka.spring_api.enums.ProjectType;
 import jakarta.persistence.*;
@@ -39,6 +40,13 @@ public class Project {
     @Column(name = "description", length = 5000) // * nullable
     private String description;
 
+    @Column(name = "build_type", nullable = false)
+    @Enumerated(EnumType.STRING)
+    private ProjectBuildType buildType;
+
+    @Column(name = "group_id")
+    private String groupId;
+
     @OneToMany(mappedBy = "project")
     @ToString.Exclude
     private List<ProjectUser> projectUsers;
@@ -46,6 +54,14 @@ public class Project {
     @OneToMany(mappedBy = "project")
     @ToString.Exclude
     private List<ProjectFile> projectFiles;
+
+    @OneToMany(mappedBy = "project")
+    @ToString.Exclude
+    private List<ProjectFolder> projectFolders;
+
+    @OneToMany(mappedBy = "project")
+    @ToString.Exclude
+    private List<CodeDifference> codeDifferences;
 
     public User getCreator() {
         return getProjectUsers().stream()

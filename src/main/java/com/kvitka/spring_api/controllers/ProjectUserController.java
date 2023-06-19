@@ -145,7 +145,6 @@ public class ProjectUserController {
     @PostMapping("/delete")
     public ResponseEntity<?> deleteProjectUser(@RequestBody ProjectUserDeleteDto projectUserDeleteDto,
                                                @RequestHeader("Authorization") String bearerToken) {
-        System.out.println("hello 1");
         User assignee = jwtTokenProvider.getUserByBearerToken(bearerToken);
         Project project = projectService.findByUUID(projectUserDeleteDto.getProjectUUID());
 
@@ -192,7 +191,26 @@ public class ProjectUserController {
                     "Попробуйте обновить страницу или повторить действие позже");
         }
 
-        System.out.println("hello 2");
         return ResponseEntity.ok("");
+    }
+
+    @GetMapping("/updateLastChange/{projectUUID}")
+    public Object updateLastChange(@PathVariable String projectUUID,
+                                   @RequestHeader("Authorization") String bearerToken) {
+        User user = jwtTokenProvider.getUserByBearerToken(bearerToken);
+        projectUserService.updateLastChange(projectUserService
+                .findByUserIdAndProjectUUID(user.getUserId(), projectUUID)
+                .getProjectUserId());
+        return null;
+    }
+
+    @Transactional
+    @GetMapping("/leaveProject/{projectUUID}")
+    public Object leaveProject(@PathVariable String projectUUID,
+                               @RequestHeader("Authorization") String bearerToken) {
+        User user = jwtTokenProvider.getUserByBearerToken(bearerToken);
+        ProjectUser projectUser = projectUserService.findByUserIdAndProjectUUID(user.getUserId(), projectUUID);
+        projectUserService.deleteById(projectUser.getProjectUserId());
+        return null;
     }
 }
